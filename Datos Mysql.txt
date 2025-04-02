@@ -1,4 +1,0 @@
-host: daw-2425.cvyltug3cy3z.us-east-1.rds.amazonaws.com
-Port: 3306
-user: fcasmen658
-pass: (la de siempre)
