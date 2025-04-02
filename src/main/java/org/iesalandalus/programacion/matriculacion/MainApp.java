@@ -18,24 +18,20 @@ public class MainApp {
 
     private static Modelo procesarArgumentosFuenteDatos(String[] args) {
         if (args.length == 0) {
-            System.out.println("Fuente de datos por defecto: memoria.");
+            System.out.println("Fuente de datos por defecto: \033[94mmemoria\033[0m.");
             return new Modelo(FactoriaFuenteDatos.MEMORIA);
         }
 
         switch (args[0].toLowerCase()) {
             case "-fdmysql":
-                System.out.println("----------------------------------------");
-                System.out.println("Fuente de datos seleccionada: MySQL.");
+                System.out.println("Fuente de datos seleccionada: \033[92mMySQL\033[0m.");
                 System.out.println("----------------------------------------");
                 return new Modelo(FactoriaFuenteDatos.MYSQL);
             case "-fdmemoria":
-                System.out.println("----------------------------------------");
-                System.out.println("Fuente de datos seleccionada: Memoria.");
+                System.out.println("Fuente de datos seleccionada: \033[94mMemoria\033[0m.");
                 System.out.println("-----------------------------------------");
-                System.out.println("Iniciando sistema de matriculación en memoria...");
                 return new Modelo(FactoriaFuenteDatos.MEMORIA);
             default:
-                System.out.println("----------------------------------------------------------");
                 System.out.println("Fuente de datos no reconocida. Usando memoria por defecto.");
                 System.out.println("----------------------------------------------------------");
                 return new Modelo(FactoriaFuenteDatos.MEMORIA);
