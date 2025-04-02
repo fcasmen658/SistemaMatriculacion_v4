@@ -1,17 +1,29 @@
-package org.iesalandalus.programacion.matriculacion.modelo.negocio;
+package org.iesalandalus.programacion.matriculacion.modelo.negocio.memoria;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.ICiclosFormativos;
 
-import java.util.ArrayList;
 import javax.naming.OperationNotSupportedException;
+import java.util.ArrayList;
 
-public class CiclosFormativos {
+public class CiclosFormativos implements ICiclosFormativos {
     private final ArrayList<CicloFormativo> coleccionCiclosFormativos;
 
     public CiclosFormativos() {
         coleccionCiclosFormativos = new ArrayList<>();
     }
 
+    @Override
+    public void comenzar() {
+
+    }
+
+    @Override
+    public void terminar() {
+
+    }
+
+    @Override
     public ArrayList<CicloFormativo> get() {
         return copiaProfundaCiclosFormativos();
     }
@@ -25,11 +37,13 @@ public class CiclosFormativos {
     }
 
 
+    @Override
     public int getTamano() {
         return this.coleccionCiclosFormativos.size();
     }
 
 
+    @Override
     public void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         if (cicloFormativo == null) {
             throw new NullPointerException("ERROR: No se puede insertar un ciclo formativo nulo.");
@@ -43,6 +57,7 @@ public class CiclosFormativos {
         }
     }
 
+    @Override
     public CicloFormativo buscar(CicloFormativo cicloFormativo) {
         if (cicloFormativo == null) {
             throw new NullPointerException("ERROR: No se puede buscar un ciclo formativo nulo.");
@@ -56,6 +71,7 @@ public class CiclosFormativos {
         }
     }
 
+    @Override
     public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         if (cicloFormativo == null) {
             throw new NullPointerException("ERROR: No se puede borrar un ciclo formativo nulo.");

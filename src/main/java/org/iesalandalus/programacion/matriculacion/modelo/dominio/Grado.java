@@ -34,6 +34,10 @@ public abstract class Grado {
         this.iniciales = s.toUpperCase();
     }
 
+    public int getNumAnios() {
+        return numAnios;
+    }
+
     public abstract void setNumAnios(int numAnios);
 
     public String toString() {

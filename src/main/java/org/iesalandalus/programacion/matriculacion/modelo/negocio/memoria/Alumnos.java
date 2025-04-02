@@ -1,11 +1,12 @@
-package org.iesalandalus.programacion.matriculacion.modelo.negocio;
+package org.iesalandalus.programacion.matriculacion.modelo.negocio.memoria;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.IAlumnos;
 
-import java.util.ArrayList;
 import javax.naming.OperationNotSupportedException;
+import java.util.ArrayList;
 
-public class Alumnos {
+public class Alumnos implements IAlumnos {
 
 
     private final ArrayList<Alumno> coleccionAlumnos;
@@ -14,6 +15,17 @@ public class Alumnos {
         coleccionAlumnos = new ArrayList<>();
     }
 
+    @Override
+    public void comenzar() {
+
+    }
+
+    @Override
+    public void terminar() {
+
+    }
+
+    @Override
     public ArrayList<Alumno> get() {
         return copiaProfundaAlumnos();
     }
@@ -26,10 +38,12 @@ public class Alumnos {
         return copiaAlumnos;
     }
 
+    @Override
     public int getTamano() {
         return this.coleccionAlumnos.size();
     }
 
+    @Override
     public void insertar(Alumno alumno) throws OperationNotSupportedException {
 
         if (alumno == null) {
@@ -43,6 +57,7 @@ public class Alumnos {
         this.coleccionAlumnos.add(new Alumno(alumno));
     }
 
+    @Override
     public Alumno buscar(Alumno alumno) {
         if (alumno == null) {
             throw new NullPointerException("ERROR: No se puede buscar un alumno nulo.");
@@ -55,6 +70,7 @@ public class Alumnos {
         }
     }
 
+    @Override
     public void borrar(Alumno alumno) throws OperationNotSupportedException {
         if (alumno == null) {
             throw new NullPointerException("ERROR: No se puede borrar un alumno nulo.");

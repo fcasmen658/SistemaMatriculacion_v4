@@ -1,21 +1,32 @@
-package org.iesalandalus.programacion.matriculacion.modelo.negocio;
+package org.iesalandalus.programacion.matriculacion.modelo.negocio.memoria;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.IMatriculas;
 
 import javax.naming.OperationNotSupportedException;
-
 import java.util.ArrayList;
 
-public class Matriculas {
+public class Matriculas implements IMatriculas {
     private final ArrayList<Matricula> coleccionMatriculas;
 
     public Matriculas() {
         coleccionMatriculas = new ArrayList<>();
     }
 
+    @Override
+    public void comenzar() {
+
+    }
+
+    @Override
+    public void terminar() {
+
+    }
+
+    @Override
     public ArrayList<Matricula> get() throws OperationNotSupportedException {
         return copiaProfundaMatriculas();
     }
@@ -28,10 +39,12 @@ public class Matriculas {
         return copiaMatriculas;
     }
 
+    @Override
     public int getTamano() {
         return this.coleccionMatriculas.size();
     }
 
+    @Override
     public void insertar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
             throw new NullPointerException("ERROR: No se puede insertar una matrícula nula.");
@@ -46,6 +59,7 @@ public class Matriculas {
         }
     }
 
+    @Override
     public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
             throw new NullPointerException("ERROR: No se puede buscar una matrícula nula.");
@@ -59,6 +73,7 @@ public class Matriculas {
         }
     }
 
+    @Override
     public void borrar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
             throw new NullPointerException("ERROR: No se puede borrar una matrícula nula.");
@@ -71,6 +86,7 @@ public class Matriculas {
         coleccionMatriculas.remove(indice);
     }
 
+    @Override
     public ArrayList<Matricula> get(Alumno alumno) {
         ArrayList<Matricula> aux = new ArrayList<>();
         for (Matricula m : coleccionMatriculas) {
@@ -81,6 +97,7 @@ public class Matriculas {
         return aux;
     }
 
+    @Override
     public ArrayList<Matricula> get(String cursoAcademico) {
         ArrayList<Matricula> aux = new ArrayList<>();
         for (Matricula m : coleccionMatriculas) {
@@ -91,6 +108,7 @@ public class Matriculas {
         return aux;
     }
 
+    @Override
     public ArrayList<Matricula> get(CicloFormativo cicloFormativo) {
         ArrayList<Matricula> aux = new ArrayList<>();
         for (Matricula m : coleccionMatriculas) {

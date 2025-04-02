@@ -23,7 +23,7 @@ public enum Modalidad {
 	}
 	
 	public String toString() {
-		return "Modalidad seleccionada: " + cadenaAMostrar;
+		return cadenaAMostrar;
 	}
 
 }

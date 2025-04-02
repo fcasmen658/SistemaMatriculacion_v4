@@ -21,6 +21,7 @@ public class GradoD extends Grado{
 		this.modalidad = modalidad;
 	}
 
+
 	@Override
 	public void setNumAnios(int numAnios) {
 		if(numAnios < 2 || numAnios > 3) {
@@ -31,9 +32,15 @@ public class GradoD extends Grado{
 	
 	@Override
 	public String toString() {
+		return super.toString() + modalidad;
+	}
+
+/*
+	public String toString() {
 		return super.toString() + " - " + modalidad;
 	}
-	
+*/
+
 	
 
 }

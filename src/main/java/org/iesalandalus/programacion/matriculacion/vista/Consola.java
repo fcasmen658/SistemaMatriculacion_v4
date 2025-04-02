@@ -1,11 +1,12 @@
 package org.iesalandalus.programacion.matriculacion.vista;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.*;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.Asignaturas;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativos;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.Asignaturas;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.CiclosFormativos;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -122,7 +123,11 @@ public class Consola {
         String nombre;
         int horas;
         do {
-            ArrayList<CicloFormativo> cicloFormativos = new CiclosFormativos().get();
+            try {
+                ArrayList<CicloFormativo> cicloFormativos = new CiclosFormativos().get();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());;
+            }
             System.out.println("Introduce el código del ciclo formativo (4 dígitos): ");
             codigo = Entrada.entero();
         } while (codigo < 1000 || codigo > 9999);
@@ -183,7 +188,7 @@ public class Consola {
 
     public static void mostrarCiclosFormativos(ArrayList<CicloFormativo> ciclosFormativos) {
         System.out.println("Lista de ciclos formativos disponibles:");
-        if (ciclosFormativos.size() == 0) {
+        if (ciclosFormativos.isEmpty()) {
             System.out.println("No hay ciclos formativos disponibles.");
         } else {
             for (CicloFormativo cicloFormativo : ciclosFormativos) {
@@ -202,9 +207,9 @@ public class Consola {
         int horas = 1;
         do {
 
-            System.out.println("Introduce el código del ciclo formativo: ");
+            System.out.println("Introduce el código del ciclo formativo (debe ser de 4 dígitos): ");
             codigo = Entrada.entero();
-        } while (codigo < 0);
+        } while (codigo < 0 || codigo > 9999);
         return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
     }
 
@@ -240,11 +245,15 @@ public class Consola {
         int horasDesdoble;
         EspecialidadProfesorado especialidadProfesorado;
         do {
-            ArrayList<Asignatura> asignaturas = new Asignaturas().get();
+            try {
+                ArrayList<Asignatura> asignaturas = new Asignaturas().get();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
             System.out.println("Introduce el código de la asignatura: ");
             System.out.println("El código debe tener un formato de 4 dígitos.");
             codigo = Entrada.cadena();
-        } while (codigo.isBlank());
+        } while (codigo.isBlank() || (codigo.length() !=4));
 
         do {
             System.out.println("Introduce el nombre de la asignatura: ");
@@ -255,7 +264,7 @@ public class Consola {
             System.out.println("Introduce las horas anuales de la asignatura: ");
             System.out.println("El numero de horas tiene que ser entre 0 y 300.");
             horasAnuales = Entrada.entero();
-        } while (horasAnuales < 0);
+        } while (horasAnuales < 0 || horasAnuales > 300);
 
         curso = leerCurso();
 
@@ -263,7 +272,7 @@ public class Consola {
             System.out.println("\nIntroduce las horas desdoble de la asignatura: ");
             System.out.println("El numero de horas de desdoble tiene que ser entre 0 y 6");
             horasDesdoble = Entrada.entero();
-        } while (horasDesdoble < 0);
+        } while (horasDesdoble < 0 || horasDesdoble > 6);
 
         especialidadProfesorado = leerEspecialidadProfesorado();
 
@@ -318,7 +327,7 @@ public class Consola {
         if (alumno == null) {
             throw new NullPointerException("ERROR: El alumno de una matrícula no puede ser nulo.");
         }
-        if (asignaturas == null || asignaturas.size() == 0) {
+        if (asignaturas == null || asignaturas.isEmpty()) {
             throw new NullPointerException("ERROR: Las asignaturas de una matrícula no pueden ser nulas.");
         }
 
@@ -347,7 +356,7 @@ public class Consola {
     public static ArrayList<Asignatura> elegirAsignaturasMatricula(ArrayList<Asignatura> asignaturas)
             throws OperationNotSupportedException {
 
-        if (asignaturas == null || asignaturas.size() == 0) {
+        if (asignaturas == null || asignaturas.isEmpty()) {
             throw new IllegalArgumentException("ERROR: No hay asignaturas disponibles para seleccionar.");
         }
 
@@ -396,7 +405,11 @@ public class Consola {
 
         System.out.println("Introduzca el id de la Matrícula.");
         idMatricula = Entrada.entero();
-        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, new Asignaturas().get());
+        try {
+            return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, new Asignaturas().get());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

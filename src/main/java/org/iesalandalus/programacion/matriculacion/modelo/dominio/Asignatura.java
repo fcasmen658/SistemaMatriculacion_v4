@@ -4,7 +4,6 @@ import java.util.Objects;
 
 public class Asignatura {
 
-
     public static final int MAX_NUM_HORAS_ANUALES = 300;
     public static final int MAX_NUM_HORAS_DESDOBLES = 6;
     private static final String ER_CODIGO = "^\\d{4}$";
@@ -55,7 +54,6 @@ public class Asignatura {
         if (!codigo.matches(ER_CODIGO)) {
             throw new IllegalArgumentException("ERROR: El código de la asignatura no tiene un formato válido.");
         }
-
         this.codigo = codigo;
     }
 
@@ -67,7 +65,6 @@ public class Asignatura {
         if (nombre == null) {
             throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede ser nulo.");
         }
-
         if (nombre.isBlank()) {
             throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede estar vacío.");
         }

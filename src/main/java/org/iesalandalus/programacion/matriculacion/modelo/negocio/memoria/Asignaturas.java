@@ -1,17 +1,30 @@
-package org.iesalandalus.programacion.matriculacion.modelo.negocio;
+package org.iesalandalus.programacion.matriculacion.modelo.negocio.memoria;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
-import java.util.ArrayList;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.IAsignaturas;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.ArrayList;
 
-public class Asignaturas {
+public class Asignaturas implements IAsignaturas {
     private final ArrayList<Asignatura> coleccionAsignaturas;
 
     public Asignaturas() {
-        coleccionAsignaturas = new ArrayList<>();
+        this.coleccionAsignaturas = new ArrayList<>();
+        comenzar();
     }
 
+    @Override
+    public void comenzar() {
+
+    }
+
+    @Override
+    public void terminar() {
+
+    }
+
+    @Override
     public ArrayList<Asignatura> get() {
         return copiaProfundaAsignaturas();
     }
@@ -24,15 +37,16 @@ public class Asignaturas {
         return copiaAsignaturas;
     }
 
+    @Override
     public int getTamano() {
         return this.coleccionAsignaturas.size();
     }
 
+    @Override
     public void insertar(Asignatura asignatura) throws OperationNotSupportedException {
         if (asignatura == null) {
             throw new NullPointerException("ERROR: No se puede insertar una asignatura nula.");
         }
-
         int indice = this.coleccionAsignaturas.indexOf(asignatura);
         if (indice == -1) {
             coleccionAsignaturas.add(new Asignatura(asignatura));
@@ -42,6 +56,7 @@ public class Asignaturas {
     }
 
 
+    @Override
     public Asignatura buscar(Asignatura asignatura) {
         if (asignatura == null) {
             throw new NullPointerException("ERROR: No se puede buscar una asignatura nula.");
@@ -54,6 +69,7 @@ public class Asignaturas {
         }
     }
 
+    @Override
     public void borrar(Asignatura asignatura) throws OperationNotSupportedException {
         if (asignatura == null) {
             throw new NullPointerException("ERROR: No se puede borrar una asignatura nula.");
